@@ -1,5 +1,5 @@
-// Dobry Talerz v2.7: zawsze pobieraj aktualny HTML, zachowaj działanie offline.
-const CACHE='dobry-talerz-online-v2-7';
+// Dobry Talerz v2.8: zawsze pobieraj aktualny HTML, zachowaj działanie offline.
+const CACHE='dobry-talerz-online-v2-8';
 const CORE=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
