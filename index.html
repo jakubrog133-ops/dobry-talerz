@@ -5,7 +5,7 @@
   <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#173a2c" />
-  <meta name="dt-app-version" content="3.3" />
+  <meta name="dt-app-version" content="3.4" />
   <meta name="description" content="Dobry Talerz — pomysły na posiłki i lista zakupów w jednym miejscu." />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/png" href="icon-192.png" />
@@ -113,7 +113,7 @@
 .modal-ingredient-section{font-weight:750;color:#234936;margin:15px 0 5px;font-size:13px}
 .logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
 
-/* Dobry Talerz 3.3 — lżejszy katalog mobilny, dostępne filtry i przewijanie bez klikania. */
+/* Dobry Talerz 3.4 — lżejszy katalog mobilny, dostępne filtry i przewijanie bez klikania. */
 .smart-filters{background:#fff;border:1px solid #dce8d6;border-radius:23px;padding:22px 25px;margin:18px 0 22px;box-shadow:0 10px 26px #183c2910}
 .smart-filters-heading{display:flex;justify-content:space-between;gap:14px;align-items:start;margin-bottom:18px}
 .smart-filters-heading h3{font-size:20px;letter-spacing:-.35px;margin:0 0 5px}
@@ -201,17 +201,37 @@
 }
 @media(max-width:360px){#view-meals .meal-card h3{font-size:11px}#view-meals .meal-body{padding:8px}}
 
+
+/* Dobry Talerz 3.4 — serduszka na kartach i osobna zakładka ulubionych. */
+.meal-thumb{position:relative}
+.favorite-toggle{position:absolute;z-index:3;right:10px;top:10px;display:grid;place-items:center;width:39px;height:39px;padding:0;border:1px solid #e5eae4;border-radius:13px;background:rgba(255,255,255,.96);box-shadow:0 3px 13px #173a2c20;color:#365744;font-size:30px;line-height:1;cursor:pointer;transition:transform .15s,background .15s,color .15s}
+.favorite-toggle:hover{transform:scale(1.07);background:#fff7f7}
+.favorite-toggle.is-favorite{background:#fff0f2;color:#cc3e61;border-color:#f3c5d0}
+.favorite-toggle:focus-visible,.modal-favorite:focus-visible{outline:3px solid #b34b65;outline-offset:2px}
+.modal-favorite{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:11px;border:1px solid #d5ded5;border-radius:12px;background:#fff;color:#365845;padding:10px 14px;font:inherit;font-weight:800;font-size:13px;cursor:pointer}
+.modal-favorite.is-favorite{background:#fff0f2;color:#a93658;border-color:#edc4d1}
+.favorites-hero{background:#fceef0}
+.favorites-hero .shopping-symbol{color:#ba4564}
+.favorites-search{display:flex;align-items:center;gap:11px;padding:12px 16px;background:white;border:1px solid var(--border);border-radius:14px;max-width:540px;margin:0 0 19px;color:#779481}
+.favorites-search input{width:100%;border:0;outline:0;min-width:0;font:inherit;font-size:13px;color:var(--ink)}
+.favorites-search:focus-within{border-color:#4e9366;box-shadow:0 0 0 3px #4e936620}
+.favorites-empty{border:1px dashed #e4b8c2;border-radius:21px;background:#fffafa;padding:45px 24px;text-align:center;color:#6b5e61}
+.favorites-empty-icon{font-size:50px;color:#c85d74}
+.favorites-empty h3{font-size:20px;margin:12px 0 10px;color:#473e40}
+.favorites-empty p{max-width:490px;margin:auto;line-height:1.6;font-size:13px}
+@media(max-width:680px){.favorite-toggle{width:33px;height:33px;right:7px;top:7px;border-radius:11px;font-size:26px}.modal-favorite{width:100%;margin-top:11px;min-height:43px}.bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.favorites-empty{padding:32px 15px}.favorites-hero .shopping-symbol{font-size:50px}}
+
 </style>
 </head>
 <body>
 <div class="shell">
 <header class="header">
   <div class="brand"><div class="logo" aria-hidden="true"><img src="icon-192.png" alt="" width="47" height="47" decoding="async"></div><div><div class="brand-main">Dobry Talerz<span style="color:#79a35c">.</span></div><div class="brand-sub">Posiłki i zakupy bez chaosu</div></div></div>
-  <nav class="top-nav" aria-label="Główna nawigacja"><button class="nav-btn active" data-view="meals">🍽️ Posiłki</button><button class="nav-btn" data-view="snacks">🍎 Przekąski</button><button class="nav-btn" data-view="ingredients">🥕 Składniki</button><button class="nav-btn" data-view="tips">💡 Dobre nawyki</button><button class="nav-btn" data-view="plan">🗓️ Plan 4 dni</button><button class="nav-btn" data-view="shopping">🛒 Lista zakupów</button></nav>
+  <nav class="top-nav" aria-label="Główna nawigacja"><button class="nav-btn active" data-view="meals">🍽️ Posiłki</button><button class="nav-btn" data-view="favorites">❤️ Ulubione</button><button class="nav-btn" data-view="snacks">🍎 Przekąski</button><button class="nav-btn" data-view="ingredients">🥕 Składniki</button><button class="nav-btn" data-view="tips">💡 Dobre nawyki</button><button class="nav-btn" data-view="plan">🗓️ Plan 4 dni</button><button class="nav-btn" data-view="shopping">🛒 Lista zakupów</button></nav>
   <button class="cart-top" data-view="shopping" aria-label="Otwórz listę zakupów">🛒 Zakupy <span class="count" data-cart-count>0</span></button>
 </header>
 <div class="update-strip" aria-label="Informacje o wersji aplikacji">
-  <div class="update-copy"><span class="update-version">Wersja 3.3</span><span>🍴 Katalog · 🥕 Filtry składników · ↑ Powrót na górę</span></div>
+  <div class="update-copy"><span class="update-version">Wersja 3.4</span><span>🍴 Katalog · 🥕 Filtry składników · ↑ Powrót na górę</span></div>
   <button type="button" class="update-button" id="force-app-refresh" title="Sprawdź aktualizację i pobierz najnowszą wersję aplikacji">⟳ Odśwież aplikację</button>
 </div>
 <main>
@@ -255,6 +275,13 @@
 <div id="meal-grid" class="meal-grid"></div>
 <div class="scroll-sentinel" id="meals-scroll-sentinel" aria-live="polite" hidden><span class="scroll-sentinel-icon" aria-hidden="true">🍽️</span><span id="meals-scroll-status">Kolejne przepisy doładują się automatycznie.</span></div>
 
+</section>
+
+<section class="view" id="view-favorites" aria-label="Ulubione przepisy">
+  <div class="shopping-hero favorites-hero"><div><div class="eyebrow" style="color:#9f4056;margin-bottom:9px">Twoje wybrane potrawy</div><h1>❤️ Ulubione</h1><p>Wszystkie przepisy oznaczone serduszkiem — zawsze pod ręką. Możesz je otworzyć, wyszukać i dodać składniki do zakupów.</p></div><div class="shopping-symbol" aria-hidden="true">♥</div></div>
+  <div class="section-title"><div><h2>Zapisane przepisy</h2><p>Dotknij serduszka przy dowolnym posiłku, aby go dodać lub usunąć z tej kolekcji.</p></div><span class="quiet" id="favorites-count">0 ulubionych</span></div>
+  <label class="favorites-search" for="favorites-search"><span aria-hidden="true">⌕</span><input id="favorites-search" type="search" autocomplete="off" placeholder="Szukaj w ulubionych, np. kurczak, makaron…" aria-label="Szukaj w ulubionych"></label>
+  <div class="meal-grid" id="favorites-grid" aria-live="polite"></div>
 </section>
 <section class="view" id="view-plan" aria-label="Plan 4 dni">
   <div class="shopping-hero plan-hero"><div><div class="eyebrow" style="color:#4c7a56;margin-bottom:9px">Twój przykładowy jadłospis</div><h1>Plan na 4 dni</h1><p>Śniadanie, II śniadanie, obiad i kolacja na każdy dzień. Losuj nowe zestawy z całej bazy przepisów — bez powtórzeń w planie.</p></div><div class="shopping-symbol" aria-hidden="true">📅</div></div>
@@ -300,10 +327,10 @@
   <div id="shopping-list" class="shop-list"></div>
 </section>
 </main>
-<footer class="footer"><div>Katalog obejmuje 181 wcześniej zapisanych posiłków i 2400 receptur z przesłanego HTML. Oryginalne zdjęcia i instrukcje Centrum Respo wymagają odpowiednich praw przed publicznym udostępnieniem.</div><div>Wersja 3.3 · 2581 przepisów · wyszukiwane składniki · szybkie filtry czasu · automatyczne przewijanie · plan 4 dni. Dane użytkownika zapisują się lokalnie.</div></footer>
+<footer class="footer"><div>Katalog obejmuje 181 wcześniej zapisanych posiłków i 2400 receptur z przesłanego HTML. Oryginalne zdjęcia i instrukcje Centrum Respo wymagają odpowiednich praw przed publicznym udostępnieniem.</div><div>Wersja 3.4 · 2581 przepisów · wyszukiwane składniki · szybkie filtry czasu · automatyczne przewijanie · plan 4 dni. Dane użytkownika zapisują się lokalnie.</div></footer>
 </div>
-<nav class="bottom-nav" aria-label="Nawigacja mobilna"><button class="bottom-item active" data-view="meals"><span class="emoji">🍽️</span>Posiłki</button><button class="bottom-item" data-view="snacks"><span class="emoji">🍎</span>Przekąski</button><button class="bottom-item" data-view="ingredients"><span class="emoji">🥕</span>Składniki</button><button class="bottom-item" data-view="tips"><span class="emoji">💡</span>Porady</button><button class="bottom-item" data-view="plan"><span class="emoji">🗓️</span>Plan</button><button class="bottom-item" data-view="shopping"><span class="emoji">🛒</span>Zakupy</button></nav>
-<div class="modal-backdrop" id="modal-backdrop" role="presentation"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name"><div class="modal-media"><img id="modal-image" alt="" loading="lazy"></div><div class="modal-top has-media"><div class="modal-head"><div><div class="modal-kicker" id="modal-kicker"></div><h2 id="modal-name"></h2></div><button class="modal-close" id="modal-close" aria-label="Zamknij">×</button></div><p id="modal-desc"></p><div id="modal-time" class="modal-time" aria-live="polite"></div><div id="modal-nutrition" class="modal-nutrition" hidden></div><p id="modal-photo-credit" class="modal-photo-credit"></p></div><div class="modal-body"><section class="prep-panel" aria-label="Sposób przygotowania"><div class="prep-head"><h3>👩‍🍳 Sposób przygotowania</h3><span id="prep-step-count" class="prep-count"></span></div><ol id="prep-steps" class="prep-steps"></ol><p id="prep-origin" class="prep-origin"></p><p id="prep-ref" class="prep-ref" hidden></p></section><div class="modal-titleline"><h3>🛒 Składniki do kupienia</h3><span class="quiet" id="ingredient-count"></span></div><p class="modal-note">Zaznacz tylko to, czego potrzebujesz. Przy składnikach z alternatywami wybierz jedną opcję. Ilości są widoczne, jeśli zostały podane przy składnikach.</p><div id="ingredients-list" class="ingredients-list"></div><div class="modal-foot"><button id="add-ingredients" class="btn">+ Dodaj do listy zakupów</button><small>Powtarzające się produkty zostaną połączone.</small></div></div></section></div>
+<nav class="bottom-nav" aria-label="Nawigacja mobilna"><button class="bottom-item active" data-view="meals"><span class="emoji">🍽️</span>Posiłki</button><button class="bottom-item" data-view="favorites"><span class="emoji">❤️</span>Ulubione</button><button class="bottom-item" data-view="snacks"><span class="emoji">🍎</span>Przekąski</button><button class="bottom-item" data-view="ingredients"><span class="emoji">🥕</span>Składniki</button><button class="bottom-item" data-view="tips"><span class="emoji">💡</span>Porady</button><button class="bottom-item" data-view="plan"><span class="emoji">🗓️</span>Plan</button><button class="bottom-item" data-view="shopping"><span class="emoji">🛒</span>Zakupy</button></nav>
+<div class="modal-backdrop" id="modal-backdrop" role="presentation"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name"><div class="modal-media"><img id="modal-image" alt="" loading="lazy"></div><div class="modal-top has-media"><div class="modal-head"><div><div class="modal-kicker" id="modal-kicker"></div><h2 id="modal-name"></h2></div><button class="modal-close" id="modal-close" aria-label="Zamknij">×</button></div><p id="modal-desc"></p><div id="modal-time" class="modal-time" aria-live="polite"></div><button type="button" id="modal-favorite" class="modal-favorite" aria-label="Dodaj przepis do ulubionych" aria-pressed="false">♡ Dodaj do ulubionych</button><div id="modal-nutrition" class="modal-nutrition" hidden></div><p id="modal-photo-credit" class="modal-photo-credit"></p></div><div class="modal-body"><section class="prep-panel" aria-label="Sposób przygotowania"><div class="prep-head"><h3>👩‍🍳 Sposób przygotowania</h3><span id="prep-step-count" class="prep-count"></span></div><ol id="prep-steps" class="prep-steps"></ol><p id="prep-origin" class="prep-origin"></p><p id="prep-ref" class="prep-ref" hidden></p></section><div class="modal-titleline"><h3>🛒 Składniki do kupienia</h3><span class="quiet" id="ingredient-count"></span></div><p class="modal-note">Zaznacz tylko to, czego potrzebujesz. Przy składnikach z alternatywami wybierz jedną opcję. Ilości są widoczne, jeśli zostały podane przy składnikach.</p><div id="ingredients-list" class="ingredients-list"></div><div class="modal-foot"><button id="add-ingredients" class="btn">+ Dodaj do listy zakupów</button><small>Powtarzające się produkty zostaną połączone.</small></div></div></section></div>
 <button type="button" class="back-to-top" id="back-to-top" aria-label="Wróć na górę strony" title="Wróć na górę" hidden>↑<span>Góra</span></button>
 <div role="status" aria-live="polite" class="toast" id="toast"></div>
 <script>
@@ -430,7 +457,84 @@ function canonical(name){const n=name.replace(/\s+\(opcjonalnie[^)]*\)/i,'').tri
 function category(name){const n=normalize(name);if(/pomidor|passata|szpinak|rukol|brokul|marchew|papryk|ogorek|rzodkiew|szczypior|pieczark|kukurydz|cebula|czosn|miks mlodych|kiwi|malin|borow|truskawk|banan|awokado|cytryn|ziemniak|ciecierzyc|soczewic|batat|gruszk|fasolk|por|jablk|arbuz|salat|kielk|oliwk|suszony pomidor|cukini|natka pietruszki/.test(n))return 'Warzywa i owoce';if(/jajk|twarog|skyr|serek|mozzarell|mleko|kefir|ser zolty|jogurt|maslo/.test(n))return 'Nabiał i jajka';if(/kurczak|indyka|indyk|dorsz|losos|tunczyk|wedlina|ryba|makrel|schab|mieso/.test(n))return 'Mięso i ryby';if(/platk|chleb|bulka|grahamk|makaron|tortill|pinsa|maka|gnocchi|wafle|ryz|kuskus|bagietk|kasza|musli|pierożk|pierozk|grzank/.test(n))return 'Pieczywo i produkty zbożowe';return 'Dodatki i pozostałe'}
 function notify(txt){const t=$('#toast');t.textContent=txt;t.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.remove('show'),2600)}
 function updateCounts(){document.querySelectorAll('[data-cart-count]').forEach(e=>e.textContent=cart.length);$('#stat-shopping').textContent=cart.length}
-function switchView(view){currentView=view;document.querySelectorAll('.view').forEach(e=>e.classList.toggle('active',e.id==='view-'+view));document.querySelectorAll('[data-view]').forEach(e=>e.classList.toggle('active',e.dataset.view===view));if(view==='shopping')renderShopping();if(view==='plan')renderPlan();if(view==='snacks')renderSnacks();if(view==='ingredients')renderIngredients();if(view==='tips')renderTips();window.scrollTo({top:0,behavior:'instant'})}
+
+// Dobry Talerz 3.4: lokalna, trwała lista ulubionych (stabilne ID przepisów).
+const FAVORITES_STORAGE='dobry-talerz-ulubione-v1';
+function loadFavorites(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(FAVORITES_STORAGE)||'[]');
+  return new Set(Array.isArray(saved)?saved.filter(id=>typeof id==='string'&&id.length<180):[]);
+ }catch(err){return new Set()}
+}
+const favoriteIds=loadFavorites();
+function favoriteButtonMarkup(recipe){
+ const selected=favoriteIds.has(recipe.id);
+ const label=selected?'Usuń z ulubionych':'Dodaj do ulubionych';
+ return `<button type="button" class="favorite-toggle${selected?' is-favorite':''}" data-favorite="${safe(recipe.id)}" aria-label="${label}: ${safe(recipe.title)}" aria-pressed="${selected}" title="${label}">${selected?'♥':'♡'}</button>`;
+}
+function updateModalFavorite(){
+ const button=$('#modal-favorite');if(!button)return;
+ const selected=!!currentRecipe && favoriteIds.has(currentRecipe.id);
+ button.textContent=selected?'♥ W ulubionych':'♡ Dodaj do ulubionych';
+ button.setAttribute('aria-pressed',String(selected));
+ button.setAttribute('aria-label',selected?'Usuń przepis z ulubionych':'Dodaj przepis do ulubionych');
+ button.classList.toggle('is-favorite',selected);
+ button.disabled=!currentRecipe;
+}
+function updateFavoriteButtons(){
+ document.querySelectorAll('button[data-favorite]').forEach(button=>{
+  const selected=favoriteIds.has(button.dataset.favorite);
+  button.textContent=selected?'♥':'♡';
+  button.setAttribute('aria-pressed',String(selected));
+  const recipe=recipesIndex?.get(button.dataset.favorite);
+  const label=selected?'Usuń z ulubionych':'Dodaj do ulubionych';
+  button.setAttribute('aria-label',label+(recipe?': '+recipe.title:''));
+  button.title=label;
+  button.classList.toggle('is-favorite',selected);
+ });
+ updateModalFavorite();
+}
+function toggleFavorite(id){
+ const exists=allMeals().some(recipe=>recipe.id===id);
+ if(!exists)return;
+ const selected=favoriteIds.has(id);
+ if(selected)favoriteIds.delete(id);else favoriteIds.add(id);
+ try{localStorage.setItem(FAVORITES_STORAGE,JSON.stringify([...favoriteIds]))}
+ catch(err){
+  if(selected)favoriteIds.add(id);else favoriteIds.delete(id);
+  notify('Nie udało się zapisać ulubionych na tym urządzeniu.');return;
+ }
+ updateFavoriteButtons();
+ if(currentView==='favorites')renderFavorites();
+ notify(selected?'Usunięto z ulubionych':'Dodano do ulubionych ♥');
+}
+function renderFavorites(){
+ const byId=new Map(allMeals().map(recipe=>[recipe.id,recipe]));
+ const saved=[...favoriteIds].reverse().map(id=>byId.get(id)).filter(Boolean);
+ const search=normalize($('#favorites-search').value||'');
+ const found=search?saved.filter(r=>normalize([r.title,r.description,...r.ingredients].join(' ')).includes(search)):saved;
+ $('#favorites-count').textContent=`${saved.length} ${saved.length===1?'ulubiony przepis':saved.length>=2&&saved.length<=4?'ulubione przepisy':'ulubionych przepisów'}`;
+ const grid=$('#favorites-grid');
+ if(!found.length){
+  grid.innerHTML=saved.length
+   ?'<div class="empty" style="grid-column:1/-1">Nie znaleziono takiego dania w ulubionych. Zmień wyszukiwaną frazę.</div>'
+   :'<div class="favorites-empty" style="grid-column:1/-1"><span class="favorites-empty-icon">♡</span><h3>Twoje ulubione miejsce na przepisy</h3><p>W katalogu posiłków kliknij serduszko na zdjęciu dania. Zapisane potrawy pojawią się tutaj automatycznie.</p></div>';
+  return;
+ }
+ grid.innerHTML=found.map(mealCardMarkup).join('');
+ attachMealImageFallbacks(grid);
+ grid.querySelectorAll('button[data-recipe]').forEach(button=>button.addEventListener('click',()=>openRecipe(button.dataset.recipe)));
+}
+document.addEventListener('click',event=>{
+ const heart=event.target.closest('button[data-favorite]');
+ if(!heart)return;
+ event.preventDefault();event.stopPropagation();
+ toggleFavorite(heart.dataset.favorite);
+});
+$('#modal-favorite').addEventListener('click',()=>{if(currentRecipe)toggleFavorite(currentRecipe.id)});
+$('#favorites-search').addEventListener('input',renderFavorites);
+
+function switchView(view){currentView=view;document.querySelectorAll('.view').forEach(e=>e.classList.toggle('active',e.id==='view-'+view));document.querySelectorAll('[data-view]').forEach(e=>e.classList.toggle('active',e.dataset.view===view));if(view==='favorites')renderFavorites();if(view==='shopping')renderShopping();if(view==='plan')renderPlan();if(view==='snacks')renderSnacks();if(view==='ingredients')renderIngredients();if(view==='tips')renderTips();window.scrollTo({top:0,behavior:'instant'})}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
 // Jedna lista: zachowaj wszystkie wcześniejsze dania i odfiltruj ponowne importy tego samego katalogu.
 function allMeals(){
@@ -654,7 +758,7 @@ let filteredMealsCache=[],visibleMealCount=0;
 const MEALS_PER_BATCH=64;
 function mealCardMarkup(r){return `
  <article class="meal-card">
-  <div class="meal-thumb"><img loading="lazy" decoding="async" data-photo-recipe="${safe(r.id)}" src="${safe(mealThumb(r))}" alt="Fotografia dania (poglądowa): ${safe(r.title)}"></div>
+  <div class="meal-thumb"><img loading="lazy" decoding="async" data-photo-recipe="${safe(r.id)}" src="${safe(mealThumb(r))}" alt="Fotografia dania (poglądowa): ${safe(r.title)}">${favoriteButtonMarkup(r)}</div>
   <div class="meal-body">
    <div class="card-top"><span class="food-icon" aria-hidden="true">${thumbEmoji(r)}</span></div>
    <div class="meal-type">${safe(r.type||'Przekąska')}</div>
@@ -730,7 +834,7 @@ function renderSnacks(){
   $('#snack-count').textContent=n+' '+(n===1?'przekąska':n>=2&&n<=4?'przekąski':'przekąsek');
   $('#snack-grid').innerHTML=n?snacks.map(r=>{
     const own=r.id.startsWith('own-snack-');
-    return `<article class="meal-card"><div class="meal-thumb"><img loading="lazy" decoding="async" data-photo-recipe="${safe(r.id)}" src="${safe(mealThumb(r))}" alt="Fotografia przekąski (poglądowa): ${safe(r.title)}"></div><div class="meal-body"><div class="card-top"><span class="food-icon" aria-hidden="true">${thumbEmoji(r)}</span></div><div class="meal-type">Przekąska</div><h3>${safe(r.title)}</h3><div class="meal-time">${safe(prepTimeLabel(r))}</div><p>${safe(r.description||'Twój pomysł na coś dobrego między posiłkami.')}</p><button class="meal-open" data-recipe="${safe(r.id)}"><span>${r.ingredients.length?'Przepis, przygotowanie i składniki':'Zobacz przepis'}</span><span aria-hidden="true">↗</span></button>${own?`<div class="snack-actions"><button type="button" data-snack-edit="${safe(r.id)}">✎ Edytuj</button><button type="button" class="snack-delete" data-snack-delete="${safe(r.id)}">Usuń</button></div>`:''}</div></article>`;
+    return `<article class="meal-card"><div class="meal-thumb"><img loading="lazy" decoding="async" data-photo-recipe="${safe(r.id)}" src="${safe(mealThumb(r))}" alt="Fotografia przekąski (poglądowa): ${safe(r.title)}">${favoriteButtonMarkup(r)}</div><div class="meal-body"><div class="card-top"><span class="food-icon" aria-hidden="true">${thumbEmoji(r)}</span></div><div class="meal-type">Przekąska</div><h3>${safe(r.title)}</h3><div class="meal-time">${safe(prepTimeLabel(r))}</div><p>${safe(r.description||'Twój pomysł na coś dobrego między posiłkami.')}</p><button class="meal-open" data-recipe="${safe(r.id)}"><span>${r.ingredients.length?'Przepis, przygotowanie i składniki':'Zobacz przepis'}</span><span aria-hidden="true">↗</span></button>${own?`<div class="snack-actions"><button type="button" data-snack-edit="${safe(r.id)}">✎ Edytuj</button><button type="button" class="snack-delete" data-snack-delete="${safe(r.id)}">Usuń</button></div>`:''}</div></article>`;
   }).join(''):'<div class="empty snack-empty"><div style="font-size:45px;margin-bottom:10px">🍏</div><h3 style="margin:0 0 8px;color:var(--ink)">Twoja kolekcja przekąsek</h3><p style="margin:0">Dodaj pierwszą przekąskę w formularzu powyżej.</p></div>';
   attachMealImageFallbacks($('#snack-grid'));
   $('#snack-grid').querySelectorAll('[data-recipe]').forEach(b=>b.addEventListener('click',()=>openRecipe(b.dataset.recipe)));
@@ -858,7 +962,7 @@ function renderPreparation(recipe){
  if(entry?.reference){ref.append('Dodatkowe źródło: ');const a=document.createElement('a');a.href=entry.reference.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=entry.reference.label;ref.appendChild(a)}
 }
 let previouslyFocused=null;
-function openRecipe(id){currentRecipe=allMeals().find(r=>r.id===id);if(!currentRecipe)return;previouslyFocused=document.activeElement;$('#modal-kicker').textContent=currentRecipe.type||'Posiłek';$('#modal-name').textContent=currentRecipe.title;$('#modal-desc').textContent=currentRecipe.description;$('#modal-time').textContent=prepTimeLabel(currentRecipe);
+function openRecipe(id){currentRecipe=allMeals().find(r=>r.id===id);if(!currentRecipe)return;updateModalFavorite();previouslyFocused=document.activeElement;$('#modal-kicker').textContent=currentRecipe.type||'Posiłek';$('#modal-name').textContent=currentRecipe.title;$('#modal-desc').textContent=currentRecipe.description;$('#modal-time').textContent=prepTimeLabel(currentRecipe);
  const n=$('#modal-nutrition'), nutrition=currentRecipe.nutrition;
  n.replaceChildren();
  if(nutrition && Object.values(nutrition).some(v=>v!==null && v!==undefined)){
@@ -983,7 +1087,7 @@ backTopButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'inst
 updateBackTop();
 
 // Aktualizacje PWA: dane użytkownika pozostają w localStorage i nie są czyszczone.
-const DT_APP_VERSION='3.3';
+const DT_APP_VERSION='3.4';
 const dtRefreshButton=document.getElementById('force-app-refresh');
 let dtLastCheck=0;
 let dtUpdateBusy=false;
